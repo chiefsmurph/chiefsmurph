@@ -7,7 +7,9 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header>
-        <img src={MeTransparent} />
+        <div>
+          {/* <img src={MeTransparent} /> */}
+        </div>
         <h1>chiefsmurph.com</h1>
       </header>
       <ul>

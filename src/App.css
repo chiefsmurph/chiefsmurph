@@ -1,6 +1,5 @@
 body {
-  font-size: 50px;
-  font-family: monospace;
+  font-size: 30px;
   background-color: white;
   color: white;
 }
@@ -13,28 +12,46 @@ body {
 header {
   border-bottom: 3px solid black;
   display: flex;
+  flex-direction: row;
+  min-height: 15vw;
+}
+
+header > * {
+  flex: 1;
+}
+
+header div {
+  flex: 0 0 22vw;
+  background-image: url('./me transparent.png');
+  background-repeat: no-repeat;
+  background-size: 20vw;
+  background-position: bottom left;
+}
+
+header img {
+  /* flex: 1; */
+  height: 13vw;
 }
 
 h1 {
   font-size: 4vw;
-  min-height: 300px;
+  align-self: flex-end;
+  margin: 0;
   color: black;
-  text-align: center;
-  /* text-decoration: underline; */
-  /* background-image: url('./me transparent.png');/ */
+  padding: 2vw;
+  /* -webkit-text-stroke: 2px gray; */
   background-repeat: no-repeat;
   background-position: bottom left;
-  
-  line-height: 100px;
-  padding-left: 20px;
-  color: black;
-  -webkit-text-stroke: 2px orange;
 }
 
 ul {
-  list-style-type: armenian;
+  list-style-type: circle;
 }
 
 a {
   color: blue;
+}
+
+a:hover {
+  color: orange;
 }
