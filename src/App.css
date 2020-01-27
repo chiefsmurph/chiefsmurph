@@ -1,0 +1,40 @@
+body {
+  font-size: 50px;
+  font-family: monospace;
+  background-color: white;
+  color: white;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  border-bottom: 3px solid black;
+  display: flex;
+}
+
+h1 {
+  font-size: 4vw;
+  min-height: 300px;
+  color: black;
+  text-align: center;
+  /* text-decoration: underline; */
+  /* background-image: url('./me transparent.png');/ */
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  
+  line-height: 100px;
+  padding-left: 20px;
+  color: black;
+  -webkit-text-stroke: 2px orange;
+}
+
+ul {
+  list-style-type: armenian;
+}
+
+a {
+  color: blue;
+}
