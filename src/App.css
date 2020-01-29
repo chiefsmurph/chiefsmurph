@@ -4,6 +4,19 @@ body {
   color: white;
 }
 
+.click-here {
+  background-color: black;
+  height: 100vh;
+  padding-top: 10vh;
+}
+button {
+  display: block;
+  width: 80%;
+  height: 80vh;
+  margin: auto;
+  font-size: 120px;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -21,7 +34,7 @@ header > * {
 }
 
 header div {
-  flex: 0 0 22vw;
+  flex: 0 220px 22vw;
   background-image: url('./me transparent.png');
   background-repeat: no-repeat;
   background-size: 20vw;

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AutoPlayAudio from './AutoPlayAudio';
 
 import logo from './logo.svg';
 import './App.css';
-import MeTransparent from './me transparent.png';
-console.log({ MeTransparent })
 const App: React.FC = () => {
+  const [clicked, setClicked] = useState(false);
+  if (!clicked) {
+    return (
+      <div className="click-here">
+        <button onClick={() => setClicked(true)}>click here</button>
+      </div>
+    );
+  }
   return (
     <div className="App">
       <header>
