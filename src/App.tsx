@@ -1,4 +1,6 @@
 import React from 'react';
+import AutoPlayAudio from './AutoPlayAudio';
+
 import logo from './logo.svg';
 import './App.css';
 import MeTransparent from './me transparent.png';
@@ -16,6 +18,7 @@ const App: React.FC = () => {
         <li><a href="/stocks" target="blank">Stocks</a></li>
         <li><a href="/circlebattle" target="blank">CircleBattle</a></li>
       </ul>
+      <AutoPlayAudio/>
     </div>
   );
 }
