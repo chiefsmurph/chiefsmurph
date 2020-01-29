@@ -8,6 +8,7 @@ body {
   background-color: black;
   height: 100vh;
   padding-top: 10vh;
+  box-sizing: border-box;
 }
 button {
   display: block;
