@@ -1,6 +1,13 @@
+* {
+  margin: 0;
+}
+
 body {
   font-size: 30px;
 }
+
+
+/* click here */
 
 .click-here {
   background-color: black;
@@ -8,6 +15,7 @@ body {
   padding-top: 10vh;
   box-sizing: border-box;
 }
+
 button {
   display: block;
   width: 80%;
@@ -45,6 +53,10 @@ header img {
   height: 13vw;
 }
 
+main {
+  padding: 2vw;
+}
+
 h1 {
   font-size: 7vw;
   align-self: flex-end;
@@ -60,7 +72,8 @@ h1 {
 
 
 ul {
-  list-style-type: circle;
+  list-style-type: square;
+  /* list-style-type:; */
 }
 
 a {
