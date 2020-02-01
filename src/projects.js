@@ -1,10 +1,16 @@
 export default [
   {
     section: 'Games',
-    links: [{
-      name: 'CircleBattle',
-      url: '/circlebattle'
-    }]
+    links: [
+      {
+        name: 'CircleBattle',
+        url: '/circlebattle'
+      },
+      {
+        name: 'Star Catcher',
+        url: '/starcatcher'
+      },
+    ]
   },
   {
     section: 'Not Games',
