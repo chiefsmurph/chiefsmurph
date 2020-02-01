@@ -9,7 +9,7 @@ export default [
   {
     section: 'Not Games',
     links: [{
-      name: 'Stocks',
+      name: 'Stock Scanner',
       url: '/stocks'
     }],
   },

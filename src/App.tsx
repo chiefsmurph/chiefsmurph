@@ -28,8 +28,8 @@ const App: React.FC = () => {
               <h2>{sectionName}</h2>
               <ul>
                 {
-                  links.map(({ name: projectName, url = '/#' }: any) => (
-                    <li><a href={url}>{projectName}</a></li>
+                  links.map(({ name: projectName, url }: any) => (
+                    <li><a href={url} className={String(!url && 'disabled-link')}>{projectName}</a></li>
                   ))
                 }
               </ul>

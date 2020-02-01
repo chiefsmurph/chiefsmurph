@@ -76,6 +76,20 @@ ul {
   /* list-style-type:; */
 }
 
+section {
+  margin-bottom: 1em;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+a.disabled-link {
+  pointer-events: none;
+}
+
 a {
   color: blue;
 }
