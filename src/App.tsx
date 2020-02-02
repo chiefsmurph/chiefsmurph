@@ -4,6 +4,11 @@ import projects from './projects';
 
 import logo from './logo.svg';
 import './App.css';
+
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-131761952-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 const App: React.FC = () => {
   const [clicked, setClicked] = useState(false);
   if (!clicked) {
