@@ -10,6 +10,10 @@ export default [
         name: 'Star Catcher',
         url: '/starcatcher'
       },
+      {
+        name: 'Tap Four 10 Dollars',
+        url: '/tapfour10dollars/'
+      },
     ]
   },
   {
