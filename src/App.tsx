@@ -34,7 +34,7 @@ const App: React.FC = () => {
               <ul>
                 {
                   links.map(({ name: projectName, url }: any) => (
-                    <li><a href={url} className={String(!url && 'disabled-link')}>{projectName}</a></li>
+                    <li><a href={url} className={String(!url && 'disabled-link')} target="_blank">{projectName}</a></li>
                   ))
                 }
               </ul>
