@@ -53,7 +53,7 @@ const AutoPlayAudio: React.FC = () => {
     socket.emit('client:request-profile', 'chiefsmurph', (data: any) => {
       console.log({ data })
       const fileToPlay = data.publicMessages[0];
-      playFile(data.publicMessages.find((m: any) => m._id === "5e30e5436b6e6b5889666f4c"));
+      // playFile(data.publicMessages.find((m: any) => m._id === "5e30e5436b6e6b5889666f4c"));
       playFile(fileToPlay);
     });
     socket.on('server:new-watch-message', ({ message }: any) => {
