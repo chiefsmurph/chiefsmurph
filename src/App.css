@@ -48,8 +48,8 @@ header div {
   background-position: bottom;
   position: relative;
 
-  margin-left: -100px;
-  margin-right: -120px;
+  /* margin-left: -100px;
+  margin-right: -120px; */
 }
 
 header div video {
