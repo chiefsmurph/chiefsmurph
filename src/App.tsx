@@ -34,7 +34,7 @@ const App: React.FC = () => {
         <h1>chiefsmurph.com</h1>
       </header>
       <main>
-        {loadedVideo.toString()}
+        {/* {loadedVideo.toString()} */}
         {
           projects.map(({ section: sectionName, links }: any) => (
             <section>
