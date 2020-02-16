@@ -33,7 +33,7 @@ header {
   border-bottom: 3px solid black;
   display: flex;
   flex-direction: row;
-  min-height: 25vw;
+  min-height: 24vw;
 }
 
 header > * {
@@ -41,11 +41,11 @@ header > * {
 }
 
 header div {
-  flex: 0 220px 22vw;
-  background-image: url('./me transparent.png');
+  flex: 0 1 29vw;
+  background-image: url('./memoving1.gif');
   background-repeat: no-repeat;
-  background-size: 20vw;
-  background-position: bottom left;
+  background-size: 136%;
+  background-position: bottom;
 }
 
 header img {
