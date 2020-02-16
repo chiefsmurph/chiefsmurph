@@ -42,7 +42,7 @@ header > * {
 
 header div {
   flex: 0 1 29vw;
-  background-image: url('./memoving1.gif');
+  /* background-image: url('./memoving1.gif'); */
   background-repeat: no-repeat;
   background-size: 136%;
   background-position: bottom;

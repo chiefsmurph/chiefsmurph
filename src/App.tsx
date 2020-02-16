@@ -23,6 +23,11 @@ const App: React.FC = () => {
       <header>
         <div>
           {/* <img src={MeTransparent} /> */}
+          <video loop autoPlay>
+            <source src="/memoving.mp4" type="video/mp4" />
+            <source src="/memoving.mp4" type="video/ogg" />
+            Your browser does not support the video tag.
+        </video>
         </div>
         <h1>chiefsmurph.com</h1>
       </header>
