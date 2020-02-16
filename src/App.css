@@ -33,7 +33,7 @@ header {
   border-bottom: 3px solid black;
   display: flex;
   flex-direction: row;
-  min-height: 24vw;
+  min-height: 28vw;
 }
 
 header > * {
