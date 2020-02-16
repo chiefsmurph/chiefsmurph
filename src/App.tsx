@@ -11,6 +11,7 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 const App: React.FC = () => {
   const [clicked, setClicked] = useState(false);
+  const [loadedVideo, setLoadedVideo] = useState(false);
   if (!clicked) {
     return (
       <div className="click-here">
@@ -23,15 +24,17 @@ const App: React.FC = () => {
       <header>
         <div>
           {/* <img src={MeTransparent} /> */}
-          <video loop autoPlay>
-            <source src="/memoving.mp4" type="video/mp4" />
-            <source src="/memoving.mp4" type="video/ogg" />
+          
+          <video loop autoPlay muted poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style={{ visibility: loadedVideo ? 'visible' : 'hidden' }} onLoadedData={() => setTimeout(() => setLoadedVideo(true), 300)}>
+            <source src="http://chiefsmurph.com/memoving.mp4" type="video/mp4" />
+            <source src="http://chiefsmurph.com/memoving.mp4" type="video/ogg" />
             Your browser does not support the video tag.
         </video>
         </div>
         <h1>chiefsmurph.com</h1>
       </header>
       <main>
+        {loadedVideo.toString()}
         {
           projects.map(({ section: sectionName, links }: any) => (
             <section>
