@@ -20,7 +20,7 @@ export default [
     section: 'Not Games',
     links: [{
       name: 'Stock Scanner',
-      url: '/stocks'
+      // url: '/stocks'
     }],
   },
   {
