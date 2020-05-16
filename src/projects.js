@@ -24,6 +24,19 @@ export default [
     }],
   },
   {
+    section: 'Portfolio Work',
+    links: [
+      {
+        name: `Wiki Hops`,
+        url: 'https://chiefsmurph.github.io/wiki-hops/'
+      },
+      {
+        name: 'WS Coding Challenge',
+        url: 'https://chiefsmurph.github.io/williams-sonoma-coding-challenge/'
+      },
+    ]
+  },
+  {
     section: 'Contributed To',
     links: [
       {
@@ -32,6 +45,6 @@ export default [
       {
         name: 'Foodhyped',
       },
-  ]
+    ]
   },
 ];

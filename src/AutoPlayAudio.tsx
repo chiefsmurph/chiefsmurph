@@ -15,7 +15,7 @@ const playNextFile = () => {
   };
   playing = file;
   console.log(file.fileName, 'now')
-  var audio = new Audio(`http://23.237.87.144:3008/audio/${file.fileName}`);
+  var audio = new Audio(`${window.location.protocol}//23.237.87.144:3008/audio/${file.fileName}`);
   audio.addEventListener('ended', () => {
     playing = undefined;
     playNextFile();
@@ -48,7 +48,7 @@ const AutoPlayAudio: React.FC = () => {
       // }
     };
 
-    const socket = socketIOClient('http://23.237.87.144:3008');
+    const socket = socketIOClient(`${window.location.protocol}//23.237.87.144:3008`);
     socket.emit('client:watch-user', 'chiefsmurph');
     socket.emit('client:request-profile', 'chiefsmurph', (data: any) => {
       console.log({ data })
@@ -85,7 +85,7 @@ const AutoPlayAudio: React.FC = () => {
     if (playingFile != fileQueue.length - 1) return console.log('not happening');
     const file = fileQueue[playingFile];
     console.log({ playingFile, file})
-    var audio = new Audio(`http://23.237.87.144:3008/audio/${(file || {} as any).fileName}`);
+    var audio = new Audio(`${window.location.protocol}//23.237.87.144:3008/audio/${(file || {} as any).fileName}`);
     audio.addEventListener('ended', () => {
       // playNextFile();
       console.log('increasing')
