@@ -26,8 +26,8 @@ const App: React.FC = () => {
           {/* <img src={MeTransparent} /> */}
           
           <video loop autoPlay muted poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style={{ visibility: loadedVideo ? 'visible' : 'hidden' }} onLoadedData={() => setTimeout(() => setLoadedVideo(true), 300)}>
-            <source src="http://chiefsmurph.com/memovingcrop.mp4" type="video/mp4" />
-            <source src="http://chiefsmurph.com/memovingcrop.mp4" type="video/ogg" />
+            <source src="https://chiefsmurph.com/memovingcrop.mp4" type="video/mp4" />
+            <source src="https://chiefsmurph.com/memovingcrop.mp4" type="video/ogg" />
             Your browser does not support the video tag.
         </video>
         </div>
