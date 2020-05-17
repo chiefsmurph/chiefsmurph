@@ -49,7 +49,7 @@ const AutoPlayAudio: React.FC = () => {
     };
 
     const socket = socketIOClient(`https://chiefsmurph.com`, {
-      path: '/record-audio-backend',
+      path: '/record-audio-backend/socket.io',
       secure: true
     });
     socket.emit('client:watch-user', 'chiefsmurph');
