@@ -41,6 +41,7 @@ const AutoPlayAudio: React.FC = () => {
       //   setPlayingFile(file);
       // } else {
         // add to end of queue
+        console.log({ file}, 'playing')
         setFileQueue(fileQueue => [
           ...fileQueue,
           file
@@ -52,10 +53,11 @@ const AutoPlayAudio: React.FC = () => {
       path: '/recordaudio/socket.io',
       secure: true
     });
+    playFile({ fileName: 'chiefsmurph-squirrels.m4a' });
     socket.emit('client:watch-user', 'chiefsmurph');
     socket.emit('client:request-profile', 'chiefsmurph', (data: any) => {
       console.log({ data })
-      const fileToPlay = 'chiefsmurph-squirrels.m4a' || data.publicMessages[0];
+      const fileToPlay = data.publicMessages[0];
       // playFile(data.publicMessages.find((m: any) => m._id === "5e30e5436b6e6b5889666f4c"));
       playFile(fileToPlay);
     });
@@ -82,13 +84,13 @@ const AutoPlayAudio: React.FC = () => {
   useEffect(() => {
     console.log('yo', {
       playingFile,
-      length: fileQueue
+      fileQueue
     })
     const playNext = () => setPlayingFile(count => count + 1);
-    if (playingFile != fileQueue.length - 1) return console.log('not happening');
+    // if (playingFile != fileQueue.length - 1) return console.log('not happening');
     const file = fileQueue[playingFile];
     console.log({ playingFile, file})
-    var audio = new Audio(`${window.location.protocol}//${window.location.hostname}:3008/audio/${(file || {} as any).fileName}`);
+    var audio = new Audio(`https://chiefsmurph.com/recordaudio/audio/${(file || {} as any).fileName}`);
     audio.addEventListener('ended', () => {
       // playNextFile();
       console.log('increasing')
