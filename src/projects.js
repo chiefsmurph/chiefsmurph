@@ -14,6 +14,10 @@ export default [
         name: 'Tap Four 10 Dollars',
         url: '/tapfour10dollars/'
       },
+      {
+        name: 'City Leaders',
+        url: '/gamerconnect/'
+      },
     ]
   },
   {
