@@ -33,7 +33,7 @@ header {
   border-bottom: 3px solid black;
   display: flex;
   flex-direction: row;
-  min-height: 28vw;
+  min-height: 63vh;
 }
 
 header > * {
@@ -47,6 +47,7 @@ header div {
   background-size: 136%;
   background-position: bottom;
   position: relative;
+  /* bottom: 1px; */
 
   /* margin-left: -100px;
   margin-right: -120px; */
@@ -57,12 +58,72 @@ header div video {
   position: absolute;
   bottom: 0;
   background-color: white;
+  z-index: -1000;
+}
+
+.speech > * {
+  opacity: 0;
+  transition: 1.9s;
+}
+
+.speech.playing > * {
+  opacity: 1;
+}
+
+.speech img {
+  position: absolute;
+  left: 30.8vw;
+  top: 6.4vw;
+  width: 20vw;
+  /* background-color: yellow; */
+
+  display: block;
+  transition: 2s;
+}
+
+.bubble-text {
+  position: absolute;
+  left: 34.8vw;
+  top: 10.4vw;
+  width: 13vw;
+  /* background-color: yellow; */
+
+  font-family: 'Comic Sans MS';
+  display: block;
+  font-size: 1.2vw;
+  transition: 3s;
 }
 
 header img {
   /* flex: 1; */
   height: 13vw;
 }
+
+.App > .second-row {
+  display: flex;
+  border-bottom: 3px solid black;
+  background: url('./connectwork.png');
+}
+
+.App > .second-row > * {
+  padding: 1em;
+  margin-right: 0.3em;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: 0.3s;
+  -webkit-transition:width 0.2s ease;
+}
+
+.App > .second-row > a:hover {
+  padding: 0.7em;
+  margin: 0.3em 0.6em 0.3em 0.3em;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.App > .second-row > div {
+  width: 100%;
+  margin-right: 0;
+}
+
 
 main {
   padding: 2vw;

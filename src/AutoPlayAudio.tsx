@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
 
+import bubble from './bubble.svg';
+
+
 const playingFiles: any[] = [];
 let playing: string | undefined;
 const playNextFile = () => {
@@ -15,7 +18,7 @@ const playNextFile = () => {
   };
   playing = file;
   console.log(file.fileName, 'now')
-  var audio = new Audio(`${window.location.protocol}//${window.location.hostname}:3008/audio/${file.fileName}`);
+  var audio = new Audio(`https://chiefsmurph.com/recordaudio/audio/${file.fileName}`);
   audio.addEventListener('ended', () => {
     playing = undefined;
     playNextFile();
@@ -53,7 +56,14 @@ const AutoPlayAudio: React.FC = () => {
       path: '/recordaudio/socket.io',
       secure: true
     });
-    playFile({ fileName: 'chiefsmurph-squirrels.m4a' });
+    setTimeout(() => {
+      playFile({ fileName: 'chiefsmurph-saturday-night-part-e.m4a' });
+      playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' })
+      // setTimeout(() => {
+      //   // setTimeout(() => playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' }), Math.random() * 1000);
+      // }, 2000);
+    },  Math.random() * 1000);
+    
     socket.emit('client:watch-user', 'chiefsmurph');
     socket.emit('client:request-profile', 'chiefsmurph', (data: any) => {
       console.log({ data })
@@ -96,22 +106,28 @@ const AutoPlayAudio: React.FC = () => {
       console.log('increasing')
       playNext();
     });
-    audio.play();
+    audio.play(); 
   }, [fileQueue, playingFile]);
   const fileObj = fileQueue[playingFile] as any;
-  return (
-    <div className="autoplay-audio">
-      <b>Users On Right Now: { userCount }</b><br/>
-      { fileObj && (
-        <div>
-          <b>Playing File: { fileObj.fileName }</b><br/>
-          {
-            fileObj.timestamp && ( <small>{(new Date(fileObj.timestamp)).toLocaleString()}</small> )
-          }
-        </div>
-      )}
+  return <>
+    (
+      <div className="autoplay-audio">
+        <b>Users On Right Now: { userCount }</b><br/>
+        { fileObj && (
+          <div>
+            <b>Playing File: { fileObj.fileName }</b><br/>
+            {
+              fileObj.timestamp && ( <small>{(new Date(fileObj.timestamp)).toLocaleString()}</small> )
+            }
+          </div>
+        )}
+      </div>
+    ),
+    <div className={`speech ${fileObj ? 'playing' : ''}`}>
+      <img src={bubble}/>
+      <span className="bubble-text">It's a saturday night party on chiefsmurph dot com</span>
     </div>
-  );
+  </>;
 }
 
 export default AutoPlayAudio;

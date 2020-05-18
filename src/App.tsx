@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AutoPlayAudio from './AutoPlayAudio';
 import projects from './projects';
 
@@ -19,6 +19,10 @@ const App: React.FC = () => {
       </div>
     );
   }
+
+  var audio = new Audio(`https://chiefsmurph.com/recordaudio/audio/chiefsmurph-what.m4a`);
+  audio.play();
+  
   return (
     <div className="App">
       <header>
@@ -33,6 +37,13 @@ const App: React.FC = () => {
         </div>
         <h1>chiefsmurph.com</h1>
       </header>
+
+      
+      <div className="second-row">
+        <a href="https://github.com/chiefsmurph" className="github">Github</a>
+        <a href="https://linkedin.com/chiefsmurph" className="linkedIn">LinkedIn</a>
+        <div/>
+      </div>
       <main>
         {/* {loadedVideo.toString()} */}
         {
@@ -49,22 +60,6 @@ const App: React.FC = () => {
             </section>
           ))
         }
-{/*         
-        <section>
-        <h2>Games</h2>
-        </section>
-        <ul>
-          <li><a href="/circlebattle" target="blank">CircleBattle</a></li>
-        </ul>
-        <h2>Not Games</h2>
-        <ul>
-          <li><a href="/stocks" target="blank">Stocks</a></li>
-        </ul>
-        <h2>Contributed To</h2>
-        <ul>
-          <li><a href="/#" target="blank">Scrapin' It</a></li>
-          <li><a href="/#" target="blank">Foodhyped</a></li>
-        </ul> */}
       </main>
       <AutoPlayAudio/>
     </div>
