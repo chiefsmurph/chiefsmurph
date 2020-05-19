@@ -110,19 +110,17 @@ const AutoPlayAudio: React.FC = () => {
   }, [fileQueue, playingFile]);
   const fileObj = fileQueue[playingFile] as any;
   return <>
-    (
-      <div className="autoplay-audio">
-        <b>Users On Right Now: { userCount }</b><br/>
-        { fileObj && (
-          <div>
-            <b>Playing File: { fileObj.fileName }</b><br/>
-            {
-              fileObj.timestamp && ( <small>{(new Date(fileObj.timestamp)).toLocaleString()}</small> )
-            }
-          </div>
-        )}
-      </div>
-    ),
+    <div className="autoplay-audio">
+      <b>Users On Right Now: { userCount }</b><br/>
+      { fileObj && (
+        <div>
+          <b>Playing File: { fileObj.fileName }</b><br/>
+          {
+            fileObj.timestamp && ( <small>{(new Date(fileObj.timestamp)).toLocaleString()}</small> )
+          }
+        </div>
+      )}
+    </div>
     <div className={`speech ${fileObj ? 'playing' : ''}`}>
       <img src={bubble}/>
       <span className="bubble-text">It's a saturday night party on chiefsmurph dot com</span>

@@ -4,7 +4,7 @@
 
 body {
   font-size: 30px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 
@@ -175,7 +175,7 @@ a:hover {
 
 
 .autoplay-audio {
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 10px;
   font-size: 60%;
