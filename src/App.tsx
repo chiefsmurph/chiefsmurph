@@ -18,6 +18,12 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 const getColor = (i: number) => ['black', 'green', 'blue', 'orange', 'black', 'violet', 'pink', 'black', 'orange', 'blue', 'green'][i];
 const stockDataToChartData = (stockData: any) => {
 
+  if (!stockData || !stockData.length) {
+    return {
+      chartData: []
+    };
+  }
+
   const curDate = (new Date(stockData[stockData.length - 1].time)).toLocaleDateString();
   const labels = stockData.map((r: any) => (new Date(r.time)).toLocaleTimeString());
   const dataKeys = Object.keys(stockData[0]).filter(key => key !== 'time').sort((a, b) => {
@@ -95,7 +101,6 @@ const App: React.FC = () => {
   audio.play();
 
   const { chartData, curDate } = stockDataToChartData(stockData);
-  console.log({ stockData, chartData})
   
   return (
     <div className="App">
@@ -135,14 +140,14 @@ const App: React.FC = () => {
           ))
         }
         {
-          stockData.length && (
+          stockData.length ? (
             <section>
               <h2>Stock Market</h2>
               <div style={{ height: '90vh' }}>
                 <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
               </div>
             </section>
-          )
+          ) : null
         }
       </main>
       <AutoPlayAudio/>
