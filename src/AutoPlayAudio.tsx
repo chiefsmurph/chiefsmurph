@@ -58,7 +58,7 @@ const AutoPlayAudio: React.FC = () => {
     });
     setTimeout(() => {
       //  playFile({ fileName: 'chiefsmurph-saturday-night-part-e.m4a' });
-      playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' })
+      playFile({ fileName: 'chiefsmurph-painting.m4a' })
       // setTimeout(() => {
       //   // setTimeout(() => playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' }), Math.random() * 1000);
       // }, 2000);
@@ -121,10 +121,10 @@ const AutoPlayAudio: React.FC = () => {
         </div>
       )}
     </div>
-    <div className={`speech ${fileObj ? 'playing' : ''}`}>
+    {/* <div className={`speech ${fileObj ? 'playing' : ''}`}>
       <img src={bubble}/>
       <span className="bubble-text">It's a saturday night party on chiefsmurph dot com</span>
-    </div>
+    </div> */}
   </>;
 }
 

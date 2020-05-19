@@ -97,9 +97,6 @@ const App: React.FC = () => {
     );
   }
 
-  var audio = new Audio(`https://chiefsmurph.com/recordaudio/audio/chiefsmurph-what.m4a`);
-  audio.play();
-
   const { chartData, curDate } = stockDataToChartData(stockData);
   
   return (
