@@ -58,12 +58,21 @@ const stockDataToChartData = (stockData: any) => {
 
   }));
 
+  let { time, ...curTrends } = stockData[stockData.length - 1];
+  curTrends = Object.keys(curTrends)
+    .map(key => ({
+      key,
+      trend: curTrends[key]
+    }))
+    .sort((a, b) => b.trend - a.trend);
+
   return {
     chartData: {
       labels,
       datasets
     },
-    curDate
+    curDate,
+    curTrends
   };
 
 };
@@ -97,7 +106,7 @@ const App: React.FC = () => {
     );
   }
 
-  const { chartData, curDate } = stockDataToChartData(stockData);
+  const { chartData, curDate, curTrends } = stockDataToChartData(stockData);
   
   return (
     <div className="App">
@@ -117,12 +126,14 @@ const App: React.FC = () => {
       
       <div className="second-row">
         <a href="https://github.com/chiefsmurph" className="github">Github</a>
-        <a href="https://linkedin.com/chiefsmurph" className="linkedIn">LinkedIn</a>
+        <a href="https://linkedin.com/in/chiefsmurph" className="linkedIn">LinkedIn</a>
         <div/>
       </div>
       <main>
-        {/* {loadedVideo.toString()} */}
-        {
+
+        <div className="side-by-side">
+{/* {loadedVideo.toString()} */}
+{
           projects.map(({ section: sectionName, links }: any) => (
             <section>
               <h2>{sectionName}</h2>
@@ -140,12 +151,22 @@ const App: React.FC = () => {
           stockData.length ? (
             <section>
               <h2>Stock Market</h2>
-              <div style={{ height: '90vh' }}>
-                <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
-              </div>
+              <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
+                {
+                  curTrends.map(({ key: indexName, trend }: any) => (
+                    <li style={{ fontWeight: indexName === 'alpacaBalance' ? 'bold' : 'initial', color: trend > 0 ? 'green' : 'red' }}>{trend > 0 ? '+' : ''}{trend}% - {indexName}</li>
+                  ))
+                }
+              </ul>
             </section>
           ) : null
         }
+        </div>
+        
+        <div style={{ height: '80vh' }}>
+          <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
+        </div>
+
       </main>
       <AutoPlayAudio/>
     </div>

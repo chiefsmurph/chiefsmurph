@@ -34,7 +34,7 @@ header {
   border-bottom: 3px solid black;
   display: flex;
   flex-direction: row;
-  min-height: 63vh;
+  min-height: 43vh;
 }
 
 header > * {
@@ -118,7 +118,7 @@ header img {
 .App > .second-row > a:hover {
   /* padding: 0.7em;
   margin: 0.3em 0.6em 0.3em 0.3em; */
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 165, 0, 0.8); 
 }
 
 .App > .second-row > div {
@@ -129,6 +129,12 @@ header img {
 
 main {
   padding: 2vw;
+}
+
+.side-by-side {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
 }
 
 header h1 {
@@ -153,6 +159,8 @@ ul {
 
 section {
   margin-bottom: 1em;
+  margin-right: 2em;
+  min-width: 40vw;
 }
 
 h2 {
@@ -170,7 +178,8 @@ a {
 }
 
 a:hover {
-  color: orange;
+  /* color: orange; */
+  font-weight: bold;
 }
 
 
