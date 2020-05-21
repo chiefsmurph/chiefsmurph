@@ -26,10 +26,12 @@ const stockDataToChartData = (stockData: any) => {
 
   const curDate = (new Date(stockData[stockData.length - 1].time)).toLocaleDateString();
   const labels = stockData.map((r: any) => (new Date(r.time)).toLocaleTimeString());
-  const dataKeys = Object.keys(stockData[0]).filter(key => key !== 'time').sort((a, b) => {
-    const first = 'alpacaBalance';
-    return a === first ? -1 : b === first ? 1 : 0; 
-  });
+  const dataKeys = Object.keys(stockData[0])
+    .filter(key => key !== 'time')
+    // .sort((a, b) => {
+    //   const first = 'chiefsmurph';
+    //   return a === first ? -1 : b === first ? 1 : 0; 
+    // });
   console.log({ dataKeys })
   const datasets = dataKeys.map((key, i) => ({
     label: key,
@@ -82,7 +84,7 @@ const stockDataToChartData = (stockData: any) => {
 
 
 const App: React.FC = () => {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(true);
   const [loadedVideo, setLoadedVideo] = useState(false);
   const [stockSocket, setStockSocket] = useState(null);
   const [stockData, setStockData] = useState([]);
@@ -94,7 +96,10 @@ const App: React.FC = () => {
     });
     socket.on('server:stock-data', (data: any) => {
       console.log({ data}, 'hiiii');
-      setStockData(data);
+      setStockData(data.map(({ alpacaBalance, ...rest }: any) => ({
+        chiefsmurph: alpacaBalance,
+        ...rest,
+      })));
     });
     setStockSocket(socket as any);
   }, []);
@@ -154,7 +159,7 @@ const App: React.FC = () => {
               <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
                 {
                   curTrends.map(({ key: indexName, trend }: any) => (
-                    <li style={{ fontWeight: indexName === 'alpacaBalance' ? 'bold' : 'initial', color: trend > 0 ? 'green' : 'red' }}>{trend > 0 ? '+' : ''}{trend}% - {indexName}</li>
+                    <li style={{ fontWeight: indexName === 'chiefsmurph' ? 'bold' : 'initial', color: trend > 0 ? 'green' : 'red' }}>{trend > 0 ? '+' : ''}{trend}% - {indexName}</li>
                   ))
                 }
               </ul>
@@ -163,9 +168,13 @@ const App: React.FC = () => {
         }
         </div>
         
-        <div style={{ height: '80vh' }}>
-          <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
-        </div>
+        {
+          stockData.length ? (
+            <div style={{ height: '80vh' }}>
+              <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
+            </div>
+          ) : null
+        }
 
       </main>
       <AutoPlayAudio/>
