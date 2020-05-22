@@ -36,10 +36,10 @@ const stockDataToChartData = (stockData: any) => {
   const datasets = dataKeys.map((key, i) => ({
     label: key,
     data: stockData.map((r: any) => r[key]),
-
-    fill: false,
+    fill: key === 'chiefsmurph' ? 'origin' : false,
+    // background
     lineTension: key.includes('balance') ? 0 : 0,
-    backgroundColor: 'rgba(75,192,192,0.1)',
+    backgroundColor: 'rgba(75,192,192,0.3)',
     pointBorderColor: getColor(i),
     // pointBorderWidth: 10,
     borderColor: getColor(i),
@@ -60,6 +60,8 @@ const stockDataToChartData = (stockData: any) => {
 
   }));
 
+  console.log(datasets)
+
   let { time, ...curTrends } = stockData[stockData.length - 1];
   curTrends = Object.keys(curTrends)
     .map(key => ({
@@ -79,7 +81,36 @@ const stockDataToChartData = (stockData: any) => {
 
 };
 
+const pruneByDays = (data: any, numDays: any) => {
+  const response: any = [];
+  let inc = 0;
+  const pruneEvery = (numDays - 1) * 3 || 1;
+  data.forEach((value: any, index: number) => {
+      inc++;
+      if (inc % pruneEvery === 0 || index === 0 || index === data.length - 1) {
+          response.push(value);
+      }
+  })
+  return response;
 
+};
+
+const formatData = (data: any) => {
+  const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const pruneBy =  Math.floor(data.length / width) * 3;
+  const renamed = data.map(({ alpacaBalance, ...rest }: any) => ({
+    chiefsmurph: alpacaBalance,
+    ...rest,
+  }));
+  console.log({
+    length: data.length,
+    width,
+    pruneBy
+  })
+  return data.length > width / 2
+    ? pruneByDays(renamed, pruneBy)
+    : renamed;
+};
 
 
 
@@ -96,10 +127,7 @@ const App: React.FC = () => {
     });
     socket.on('server:stock-data', (data: any) => {
       console.log({ data}, 'hiiii');
-      setStockData(data.map(({ alpacaBalance, ...rest }: any) => ({
-        chiefsmurph: alpacaBalance,
-        ...rest,
-      })));
+      setStockData(formatData(data));
     });
     setStockSocket(socket as any);
   }, []);
@@ -171,7 +199,40 @@ const App: React.FC = () => {
         {
           stockData.length ? (
             <div style={{ height: '80vh' }}>
-              <Line data={chartData} options={{ maintainAspectRatio: false, title: { display: true, text: `Trends for ${curDate}` }}} />
+              <Line 
+                data={chartData} 
+                options={{ 
+                  maintainAspectRatio: false, 
+                  title: { 
+                    display: true, 
+                    text: `Trends for ${curDate}`, 
+                    // fontFamily: "'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
+                    fontSize: 20
+                  },
+                  legend: {
+                    labels: {
+                      filter: function(item: any) {
+                        return !item.text.includes('zero');
+                      }
+                    }
+                  },
+                  scales: {
+                    yAxes: [{
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'trend since previous close',
+                        fontSize: 17,
+                        
+                      },
+                      ticks: {
+                        fontSize: 20,
+                        callback: function(value: any) {
+                          return value + '%';
+                        }
+                      }
+                    }]
+                  }
+                }} />
             </div>
           ) : null
         }
