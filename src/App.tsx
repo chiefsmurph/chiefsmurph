@@ -99,7 +99,7 @@ const formatData = (data: any) => {
   const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   const pruneBy =  Math.floor(data.length / width) * 3;
   const renamed = data.map(({ alpacaBalance, ...rest }: any) => ({
-    chiefsmurph: alpacaBalance,
+    // chiefsmurph: alpacaBalance,
     ...rest,
   }));
   console.log({
@@ -107,7 +107,6 @@ const formatData = (data: any) => {
     width,
     pruneBy
   })
-  delete data.chiefsmurph;
   return data.length > width / 2
     ? pruneByDays(renamed, pruneBy)
     : renamed;
