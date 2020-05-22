@@ -107,6 +107,7 @@ const formatData = (data: any) => {
     width,
     pruneBy
   })
+  delete data.chiefsmurph;
   return data.length > width / 2
     ? pruneByDays(renamed, pruneBy)
     : renamed;
