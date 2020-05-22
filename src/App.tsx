@@ -147,11 +147,11 @@ const App: React.FC = () => {
         <div>
           {/* <img src={MeTransparent} /> */}
           
-          <video loop autoPlay muted poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style={{ visibility: loadedVideo ? 'visible' : 'hidden' }} onLoadedData={() => setTimeout(() => setLoadedVideo(true), 300)}>
+          {/* <video loop autoPlay muted poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style={{ visibility: loadedVideo ? 'visible' : 'hidden' }} onLoadedData={() => setTimeout(() => setLoadedVideo(true), 300)}>
             <source src="https://chiefsmurph.com/memovingcrop.mp4" type="video/mp4" />
             <source src="https://chiefsmurph.com/memovingcrop.mp4" type="video/ogg" />
             Your browser does not support the video tag.
-        </video>
+        </video> */}
         </div>
         <h1>chiefsmurph.com</h1>
       </header>
