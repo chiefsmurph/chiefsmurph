@@ -36,7 +36,7 @@ const stockDataToChartData = (stockData: any) => {
   const datasets = dataKeys.map((key, i) => ({
     label: key,
     data: stockData.map((r: any) => r[key]),
-    fill: key === 'chiefsmurph' ? 'origin' : false,
+    fill: key === 'sp500' ? 'origin' : false,
     // background
     lineTension: key.includes('balance') ? 0 : 0,
     backgroundColor: 'rgba(75,192,192,0.3)',
@@ -231,7 +231,8 @@ const App: React.FC = () => {
                         }
                       }
                     }]
-                  }
+                  },
+                  fill: true
                 }} />
             </div>
           ) : null
