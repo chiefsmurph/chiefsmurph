@@ -195,8 +195,6 @@ const App: React.FC = () => {
           ) : null
         }
         </div>
-
-        5/22 - Looks like the stock indexes are up today!  More money? Sounds good to me!
         
         {
           stockData.length ? (
