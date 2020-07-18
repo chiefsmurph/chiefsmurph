@@ -118,7 +118,7 @@ const App: React.FC = () => {
   const [clicked, setClicked] = useState(true);
   const [loadedVideo, setLoadedVideo] = useState(false);
   const [stockSocket, setStockSocket] = useState(null);
-  const [stockData, setStockData] = useState([]);
+  const [stockData, setStockData] = useState(undefined as any);
 
   useEffect(() => {
     const socket = socketIOClient(`https://chiefsmurph.com`, {
@@ -127,7 +127,10 @@ const App: React.FC = () => {
     });
     socket.on('server:stock-data', (data: any) => {
       console.log({ data}, 'hiiii');
-      setStockData(formatData(data));
+      setStockData({
+        ...data,
+        chartData: formatData(data.chartData)
+      });
     });
     setStockSocket(socket as any);
   }, []);
@@ -139,7 +142,13 @@ const App: React.FC = () => {
     );
   }
 
-  const { chartData, curDate, curTrends } = stockDataToChartData(stockData);
+  const alertRecs = () => {
+    window.alert(JSON.stringify(stockData.recommendations, null, 2))
+  }
+
+  console.log({ stockData });
+
+  const { chartData, curDate, curTrends = [] } = stockDataToChartData((stockData || {}).chartData);
   
   return (
     <div className="App">
@@ -181,9 +190,10 @@ const App: React.FC = () => {
           ))
         }
         {
-          stockData.length ? (
+          stockData ? (
             <section>
               <h2>Stock Market</h2>
+              <a onClick={alertRecs} href="#">Click here for my penny stock recommendations</a>
               <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
                 {
                   curTrends.map(({ key: indexName, trend }: any) => (
@@ -197,7 +207,7 @@ const App: React.FC = () => {
         </div>
         
         {
-          stockData.length ? (
+          stockData ? (
             <div style={{ height: '80vh' }}>
               <Line 
                 data={chartData} 
