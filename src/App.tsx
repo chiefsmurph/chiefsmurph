@@ -143,8 +143,8 @@ const App: React.FC = () => {
   }
 
   const alertRecs = () => {
-    window.alert(JSON.stringify(stockData.recommendations, null, 2))
-  }
+    window.alert(JSON.stringify(stockData.recommendations, null, 2));
+  };
 
   console.log({ stockData });
 
@@ -190,10 +190,10 @@ const App: React.FC = () => {
           ))
         }
         {
-          stockData ? (
+          stockData && curDate ? (
             <section>
               <h2>Stock Market</h2>
-              <a onClick={alertRecs} href="#">Click here for my penny stock recommendations</a>
+              <a onClick={evt => { alertRecs(); evt.preventDefault(); }} href="#">Click here for my list of penny stocks to watch</a>
               <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
                 {
                   curTrends.map(({ key: indexName, trend }: any) => (
@@ -207,7 +207,7 @@ const App: React.FC = () => {
         </div>
         
         {
-          stockData ? (
+          stockData && curDate ? (
             <div style={{ height: '80vh' }}>
               <Line 
                 data={chartData} 
@@ -215,7 +215,7 @@ const App: React.FC = () => {
                   maintainAspectRatio: false, 
                   title: { 
                     display: true, 
-                    text: `Trends for ${curDate}`, 
+                    text: `Trends for ${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][(new Date(curDate)).getDay()]} ${curDate}`, 
                     // fontFamily: "'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
                     fontSize: 20
                   },
