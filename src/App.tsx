@@ -10,6 +10,9 @@ import logo from './logo.svg';
 import './App.css';
 
 import ReactGA from 'react-ga';
+
+import useCookie from '@devhammed/use-cookie'
+
 ReactGA.initialize('UA-131761952-2');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
@@ -96,6 +99,7 @@ const pruneByDays = (data: any, numDays: any) => {
 };
 
 const formatData = (data: any) => {
+  console.log({ data })
   const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   const pruneBy =  Math.floor(data.length / width) * 3;
   const renamed = data.map(({ alpacaBalance, ...rest }: any) => ({
@@ -112,28 +116,53 @@ const formatData = (data: any) => {
     : renamed;
 };
 
+const formatAlert = (recommendations: any = {}, cheapestPicks: any = []) => {
+  console.log({ recommendations, cheapestPicks })
+  return [
+    Object.entries(recommendations).map(entry => entry.join(' - ')).join('\n'),
+    cheapestPicks.map(({ ticker, last_trade_price, trend_since_prev_close }: any) => 
+      `${ticker}${' '.repeat(7 - ticker.length)} - $${last_trade_price} (${trend_since_prev_close > 0 ? '+' : ''}${trend_since_prev_close}%)`
+    ).join('\n')
+  ].filter(Boolean).join('\n\n');
+};
+
 
 
 const App: React.FC = () => {
   const [clicked, setClicked] = useState(true);
   const [loadedVideo, setLoadedVideo] = useState(false);
-  const [stockSocket, setStockSocket] = useState(null);
+  const [stockSocket, setStockSocket] = useState();
+  const [auth, setAuth] = useState(null);
   const [stockData, setStockData] = useState(undefined as any);
+  const [cheapestPicks, setCheapestPicks] = useState([]);
+
+  const [authString, setAuthString, deleteAuthString] = useCookie('authString', 'basic');
 
   useEffect(() => {
     const socket = socketIOClient(`https://chiefsmurph.com`, {
       path: '/stocktips/socket.io',
       secure: true
     });
-    socket.on('server:stock-data', (data: any) => {
-      console.log({ data}, 'hiiii');
-      setStockData({
-        ...data,
-        chartData: formatData(data.chartData)
-      });
-    });
     setStockSocket(socket as any);
   }, []);
+
+  useEffect(() => {
+    if (!stockSocket) return;
+    stockSocket.on('server:cheapest', (cheapest: any) => {
+      console.log({ cheapest });
+      setCheapestPicks(cheapest);
+    });
+    stockSocket.on('server:stock-data', (data: any) => {
+      console.log({ data, stockData})
+      setStockData({
+        ...stockData,
+        ...data,
+        ...data.chartData && { chartData: formatData(data.chartData) }
+      });
+    });
+    stockSocket.emit('client:auth', authString);
+  }, [stockSocket]);
+
   if (!clicked) {
     return (
       <div className="click-here">
@@ -142,14 +171,19 @@ const App: React.FC = () => {
     );
   }
 
-  const alertRecs = () => {
-    window.alert(JSON.stringify(stockData.recommendations, null, 2));
+  const alertRecs = () => window.alert(formatAlert(stockData.recommendations))
+  const alertCheapest = () => window.alert(formatAlert(undefined, cheapestPicks))
+  const hit = () => {
+    const response = window.prompt('how about it?');
+    setAuthString(response);
+    if (stockSocket) {
+      stockSocket.emit('client:auth', response);
+    }
   };
-
   console.log({ stockData });
 
   const { chartData, curDate, curTrends = [] } = stockDataToChartData((stockData || {}).chartData);
-  
+    console.log('bam')
   return (
     <div className="App">
       <header>
@@ -162,7 +196,7 @@ const App: React.FC = () => {
             Your browser does not support the video tag.
         </video> */}
         </div>
-        <h1>chiefsmurph.com</h1>
+        <h1>chie<span onClick={hit}>f</span>smurph.com</h1>
       </header>
 
       
@@ -174,8 +208,8 @@ const App: React.FC = () => {
       <main>
 
         <div className="side-by-side">
-{/* {loadedVideo.toString()} */}
-{
+        {/* {loadedVideo.toString()} */}
+        {
           projects.map(({ section: sectionName, links }: any) => (
             <section>
               <h2>{sectionName}</h2>
@@ -193,7 +227,15 @@ const App: React.FC = () => {
           stockData && curDate ? (
             <section>
               <h2>Stock Market</h2>
-              <a onClick={evt => { alertRecs(); evt.preventDefault(); }} href="#">Click here for my list of penny stocks to watch</a>
+              <a onClick={evt => { alertRecs(); evt.preventDefault(); }} href="#">
+                Click here for my list of penny stocks to watch
+              </a>
+              <br/>
+              {Boolean(cheapestPicks.length) && 
+                <a onClick={evt => { alertCheapest(); evt.preventDefault(); }} href="#">
+                  Click here for the cheapest non-OTC stocks
+                </a>
+              }
               <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
                 {
                   curTrends.map(({ key: indexName, trend }: any) => (
