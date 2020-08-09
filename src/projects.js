@@ -23,8 +23,8 @@ export default [
   // {
   //   section: 'Not Games',
   //   links: [{
-  //     name: 'Stock Scanner',
-  //     // url: '/stocks'
+  //     name: 'Karate Scanner',
+  //     // url: '/karates'
   //   }],
   // },
   // {

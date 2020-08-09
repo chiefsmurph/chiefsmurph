@@ -19,17 +19,17 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 const getColor = (i: number) => ['black', 'green', 'blue', 'orange', 'black', 'violet', 'pink', 'black', 'orange', 'blue', 'green'][i];
-const stockDataToChartData = (stockData: any) => {
+const karateDataToChartData = (karateData: any) => {
 
-  if (!stockData || !stockData.length) {
+  if (!karateData || !karateData.length) {
     return {
       chartData: []
     };
   }
 
-  const curDate = (new Date(stockData[stockData.length - 1].time)).toLocaleDateString();
-  const labels = stockData.map((r: any) => (new Date(r.time)).toLocaleTimeString());
-  const dataKeys = Object.keys(stockData[0])
+  const curDate = (new Date(karateData[karateData.length - 1].time)).toLocaleDateString();
+  const labels = karateData.map((r: any) => (new Date(r.time)).toLocaleTimeString());
+  const dataKeys = Object.keys(karateData[0])
     .filter(key => key !== 'time')
     // .sort((a, b) => {
     //   const first = 'chiefsmurph';
@@ -38,7 +38,7 @@ const stockDataToChartData = (stockData: any) => {
   console.log({ dataKeys })
   const datasets = dataKeys.map((key, i) => ({
     label: key,
-    data: stockData.map((r: any) => r[key]),
+    data: karateData.map((r: any) => r[key]),
     fill: key === 'sp500' ? 'origin' : false,
     // background
     lineTension: key.includes('balance') ? 0 : 0,
@@ -65,7 +65,7 @@ const stockDataToChartData = (stockData: any) => {
 
   console.log(datasets)
 
-  let { time, ...curTrends } = stockData[stockData.length - 1];
+  let { time, ...curTrends } = karateData[karateData.length - 1];
   curTrends = Object.keys(curTrends)
     .map(key => ({
       key,
@@ -116,13 +116,22 @@ const formatData = (data: any) => {
     : renamed;
 };
 
-const formatAlert = (recommendations: any = {}, cheapestPicks: any = []) => {
+type Recommendations = {
+
+};
+
+interface CheapestPicks {
+  label: string;
+  data: any[]
+};
+
+const formatAlert = (recommendations: any = {}, cheapestPicks?: CheapestPicks | null) => {
   console.log({ recommendations, cheapestPicks })
   return [
     Object.entries(recommendations).map(entry => entry.join(' - ')).join('\n'),
-    cheapestPicks.map(({ ticker, last_trade_price, trend_since_prev_close }: any) => 
+    ...cheapestPicks ? [cheapestPicks.data.map(({ ticker, last_trade_price, trend_since_prev_close }: any) => 
       `${ticker}${' '.repeat(7 - ticker.length)} - $${last_trade_price} (${trend_since_prev_close > 0 ? '+' : ''}${trend_since_prev_close}%)`
-    ).join('\n')
+    ).join('\n')] : []
   ].filter(Boolean).join('\n\n');
 };
 
@@ -131,37 +140,37 @@ const formatAlert = (recommendations: any = {}, cheapestPicks: any = []) => {
 const App: React.FC = () => {
   const [clicked, setClicked] = useState(true);
   const [loadedVideo, setLoadedVideo] = useState(false);
-  const [stockSocket, setStockSocket] = useState();
+  const [karateSocket, setKarateSocket] = useState();
   const [auth, setAuth] = useState(null);
-  const [stockData, setStockData] = useState(undefined as any);
-  const [cheapestPicks, setCheapestPicks] = useState([]);
+  const [karateData, setKarateData] = useState(undefined as any);
+  const [cheapestPicks, setCheapestPicks] = useState(null);
 
   const [authString, setAuthString, deleteAuthString] = useCookie('authString', 'basic');
 
   useEffect(() => {
     const socket = socketIOClient(`https://chiefsmurph.com`, {
-      path: '/stocktips/socket.io',
+      path: '/karatetips/socket.io',
       secure: true
     });
-    setStockSocket(socket as any);
+    setKarateSocket(socket as any);
   }, []);
 
   useEffect(() => {
-    if (!stockSocket) return;
-    stockSocket.on('server:cheapest', (cheapest: any) => {
+    if (!karateSocket) return;
+    karateSocket.on('server:cheapest', (cheapest: any) => {
       console.log({ cheapest });
       setCheapestPicks(cheapest);
     });
-    stockSocket.on('server:stock-data', (data: any) => {
-      console.log({ data, stockData})
-      setStockData({
-        ...stockData,
+    karateSocket.on('server:karate-data', (data: any) => {
+      console.log({ data, karateData})
+      setKarateData({
+        ...karateData,
         ...data,
         ...data.chartData && { chartData: formatData(data.chartData) }
       });
     });
-    stockSocket.emit('client:auth', authString);
-  }, [stockSocket]);
+    karateSocket.emit('client:auth', authString);
+  }, [karateSocket]);
 
   if (!clicked) {
     return (
@@ -171,18 +180,21 @@ const App: React.FC = () => {
     );
   }
 
-  const alertRecs = () => window.alert(formatAlert(stockData.recommendations))
+  const alertRecs = () => window.alert(
+    formatAlert(karateData.recommendations)
+  );
+  
   const alertCheapest = () => window.alert(formatAlert(undefined, cheapestPicks))
   const hit = () => {
     const response = window.prompt('how about it?');
     setAuthString(response);
-    if (stockSocket) {
-      stockSocket.emit('client:auth', response);
+    if (karateSocket) {
+      karateSocket.emit('client:auth', response);
     }
   };
-  console.log({ stockData });
+  console.log({ karateData });
 
-  const { chartData, curDate, curTrends = [] } = stockDataToChartData((stockData || {}).chartData);
+  const { chartData, curDate, curTrends = [] } = karateDataToChartData((karateData || {}).chartData);
     console.log('bam')
   return (
     <div className="App">
@@ -224,16 +236,16 @@ const App: React.FC = () => {
           ))
         }
         {
-          stockData && curDate ? (
+          karateData && curDate ? (
             <section>
-              <h2>Stock Market</h2>
+              <h2>{karateData.section}</h2>
               <a onClick={evt => { alertRecs(); evt.preventDefault(); }} href="#">
-                Click here for my list of penny stocks to watch
+                {karateData.label}
               </a>
               <br/>
-              {Boolean(cheapestPicks.length) && 
+              {Boolean(cheapestPicks && cheapestPicks.data.length) && 
                 <a onClick={evt => { alertCheapest(); evt.preventDefault(); }} href="#">
-                  Click here for the cheapest non-OTC stocks
+                  {cheapestPicks.label}
                 </a>
               }
               <ul style={{ listStyleType: 'none', padding: '0 0.5em', fontSize: '80%' }}>
@@ -246,10 +258,24 @@ const App: React.FC = () => {
             </section>
           ) : null
         }
+
+          <section>
+            <h2>My Music</h2>
+            <a onClick={() => {
+              const evt = new CustomEvent('playSong', { detail: 'whats-up.mp3' });
+              document.dispatchEvent(evt);
+              karateSocket.emit('client:log', 'playing whats up');
+              setTimeout(() => {
+                const evt = new CustomEvent('stopAudio');
+                document.dispatchEvent(evt);
+                console.log(';stopp')
+              }, 5000);
+            }} style={{ cursor: 'pointer' }}>"Whats Up"</a>
+          </section>
         </div>
         
         {
-          stockData && curDate ? (
+          karateData && curDate ? (
             <div style={{ height: '80vh' }}>
               <Line 
                 data={chartData} 

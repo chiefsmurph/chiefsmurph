@@ -60,7 +60,7 @@ const AutoPlayAudio: React.FC = () => {
       //  playFile({ fileName: 'chiefsmurph-saturday-night-part-e.m4a' });
       // playFile({ fileName: 'chiefsmurph-painting.m4a' })
       // setTimeout(() => {
-      //   // setTimeout(() => playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' }), Math.random() * 1000);
+        // setTimeout(() => playFile({ fileName: 'LANDR-CEF CGaugF-Medium-Balanced.mp3' }), Math.random() * 1000);
       // }, 2000);
     },  Math.random() * 1000);
     
@@ -68,6 +68,7 @@ const AutoPlayAudio: React.FC = () => {
     socket.emit('client:request-profile', 'chiefsmurph', (data: any) => {
       console.log({ data })
       const fileToPlay = data.publicMessages[0];
+      console.log('public', data.publicMessages)
       // playFile(data.publicMessages.find((m: any) => m._id === "5e30e5436b6e6b5889666f4c"));
       playFile(fileToPlay);
     });
@@ -77,6 +78,11 @@ const AutoPlayAudio: React.FC = () => {
     });
     socket.on('server:user-count-change', ({ userCount }: any) => {
       setUserCount(userCount);
+    });
+
+    document.addEventListener('playSong', (evt: any) => {
+      console.log('playing song', evt.detail);
+      playFile({ fileName: evt.detail });
     });
     // return () => {
     //   socket.off('server:new-watch-message');
@@ -91,12 +97,16 @@ const AutoPlayAudio: React.FC = () => {
   //   setFileQueue(fileQueue.slice(1));
   // };
 
+
   useEffect(() => {
     console.log('yo', {
       playingFile,
       fileQueue
     })
     const playNext = () => setPlayingFile(count => count + 1);
+
+    document.addEventListener('stopAudio', playNext);
+
     // if (playingFile != fileQueue.length - 1) return console.log('not happening');
     const file = fileQueue[playingFile];
     console.log({ playingFile, file})
