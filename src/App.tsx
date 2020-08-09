@@ -259,7 +259,7 @@ const App: React.FC = () => {
           ) : null
         }
 
-          <section>
+          {/* <section>
             <h2>My Music</h2>
             <a onClick={() => {
               const evt = new CustomEvent('playSong', { detail: 'whats-up.mp3' });
@@ -271,7 +271,8 @@ const App: React.FC = () => {
                 console.log(';stopp')
               }, 5000);
             }} style={{ cursor: 'pointer' }}>"Whats Up"</a>
-          </section>
+          </section> */}
+          
         </div>
         
         {
