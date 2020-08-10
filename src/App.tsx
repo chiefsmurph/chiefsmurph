@@ -169,7 +169,7 @@ const App: React.FC = () => {
         ...data.chartData && { chartData: formatData(data.chartData) }
       });
     });
-    karateSocket.emit('client:auth', authString);
+    authString && karateSocket.emit('client:auth', authString);
   }, [karateSocket]);
 
   if (!clicked) {
