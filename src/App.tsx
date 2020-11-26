@@ -146,7 +146,7 @@ const App: React.FC = () => {
   const [cheapestPicks, setCheapestPicks] = useState(null);
 
   const [authString, setAuthString, deleteAuthString] = useCookie('authString', 'basic');
-
+  const [publicData, setPublicData] = useState();
   useEffect(() => {
     const socket = socketIOClient(`https://chiefsmurph.com`, {
       path: '/karatetips/socket.io',
@@ -157,6 +157,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!karateSocket) return;
+    karateSocket.on('server:public-data', setPublicData);
     karateSocket.on('server:cheapest', (cheapest: any) => {
       console.log({ cheapest });
       setCheapestPicks(cheapest);
@@ -238,6 +239,17 @@ const App: React.FC = () => {
             </section>
           ))
         }
+        <section>
+          <h2>Stocks</h2>
+          <ul>
+            <li><a href="https://www.linkedin.com/pulse/trading-penny-stocks-nodejs-robinhood-api-john-murphy/">Trading penny stocks with Node.js and the Robinhood API</a></li>
+            {publicData && (
+              <>
+                <li>Current tickers I am watching: {publicData.recommendations.join(', ')}</li>
+              </>
+            )}
+          </ul>
+        </section>
         {
           karateData && curDate ? (
             <section>
