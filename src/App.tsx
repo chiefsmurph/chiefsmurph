@@ -147,12 +147,14 @@ const App: React.FC = () => {
 
   const [authString, setAuthString, deleteAuthString] = useCookie('authString', 'basic');
   const [publicData, setPublicData] = useState();
+  const [weatherData, setWeatherData] = useState();
   useEffect(() => {
     const socket = socketIOClient(`https://chiefsmurph.com`, {
       path: '/karatetips/socket.io',
       secure: true
     });
     setKarateSocket(socket as any);
+    fetch('https://chiefsmurph.com/weather/').then(response => response.json()).then(setWeatherData);
   }, []);
 
   useEffect(() => {
@@ -250,6 +252,18 @@ const App: React.FC = () => {
             )}
           </ul>
         </section>
+        {
+          weatherData && (
+            <section>
+              <h2>About you</h2>
+              <ul>
+                {Object.entries(weatherData).map(([key, value]) => (
+                  <li>{key}: {value}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
         {
           karateData && curDate ? (
             <section>
