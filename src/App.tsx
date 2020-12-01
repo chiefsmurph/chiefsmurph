@@ -241,17 +241,6 @@ const App: React.FC = () => {
             </section>
           ))
         }
-        <section>
-          <h2>Stocks</h2>
-          <ul>
-            <li><a href="https://www.linkedin.com/pulse/trading-penny-stocks-nodejs-robinhood-api-john-murphy/">Trading penny stocks with Node.js and the Robinhood API</a></li>
-            {publicData && (
-              <>
-                <li>Current tickers I am watching: {publicData.recommendations.join(', ')}</li>
-              </>
-            )}
-          </ul>
-        </section>
         {
           weatherData && (
             <section>
@@ -347,7 +336,6 @@ const App: React.FC = () => {
         }
 
       </main>
-      <AutoPlayAudio/>
     </div>
   );
 }
