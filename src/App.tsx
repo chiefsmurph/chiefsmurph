@@ -149,7 +149,7 @@ const App: React.FC = () => {
   const [publicData, setPublicData] = useState();
   const [weatherData, setWeatherData] = useState();
   useEffect(() => {
-    const socket = socketIOClient(`https://beachonkey.com`, {
+    const socket = socketIOClient(`https://chiefsmurph.com`, {
       path: '/karatetips/socket.io',
       secure: true
     });
