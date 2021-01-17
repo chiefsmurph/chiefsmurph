@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default () => {
     const [predictions, setPredictions] = useState({} as any);
     useEffect(() => {
-        fetch('/pattern-predict/nba?json').then(setPredictions);
+        fetch('/pattern-predict/nba?json').then(response => response.json()).then(setPredictions);
     }, []);
     return (
         <section>
