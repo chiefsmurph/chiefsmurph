@@ -4,15 +4,20 @@ require('react-datepicker/dist/react-datepicker.css')
 
 export default () => {
     const [date, setDate] = useState(new Date());
+    const [loading, setLoading] = useState(false);
     const [predictions, setPredictions] = useState({} as any);
     useEffect(() => {
-        fetch(`/pattern-predict/nba/${date}?json`).then(response => response.json()).then(setPredictions);
+        setLoading(true);
+        fetch(`/pattern-predict/nba/${date}?json`).then(response => response.json()).then(data => {
+            setPredictions(data);
+            setLoading(false);
+        });
     }, [date]);
     return (
         <section>
             <h2>Nba Predictions</h2>
             {
-                predictions.predictions ? (
+                !loading ? (
                     <div>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         <ul style={{ zoom: '70%' }}>
