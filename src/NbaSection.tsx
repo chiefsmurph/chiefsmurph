@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
+require('react-datepicker/dist/react-datepicker.css')
 
 export default () => {
     const [date, setDate] = useState(new Date());
