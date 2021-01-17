@@ -12,9 +12,9 @@ export default () => {
             <h2>Nba Predictions</h2>
             {
                 predictions.predictions ? (
-                    <div style={{ zoom: '70%' }}>
+                    <div>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
-                        <ul>
+                        <ul style={{ zoom: '70%' }}>
                             {
                                 predictions.predictions.map(line => <li>{line}</li>)
                             }
