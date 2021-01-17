@@ -13,6 +13,8 @@ import ReactGA from 'react-ga';
 
 import useCookie from '@devhammed/use-cookie'
 
+import NbaSection from './NbaSection';
+
 ReactGA.initialize('UA-131761952-2');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
@@ -201,7 +203,9 @@ const App: React.FC = () => {
   console.log({ karateData });
 
   const { chartData, curDate, curTrends = [] } = karateDataToChartData((karateData || {}).chartData);
-    console.log('bam')
+  console.log('bam')
+
+  const isAuth = Boolean(karateData);
   return (
     <div className="App">
       <header>
@@ -276,6 +280,8 @@ const App: React.FC = () => {
             </section>
           ) : null
         }
+
+        <NbaSection/>
 
           {/* <section>
             <h2>My Music</h2>
