@@ -147,7 +147,7 @@ const App: React.FC = () => {
   const [karateData, setKarateData] = useState(undefined as any);
   const [cheapestPicks, setCheapestPicks] = useState(null);
 
-  const [authString, setAuthString, deleteAuthString] = useCookie('authString', 'basic');
+  const [blauthString, setblauthString, deleteblauthString] = useCookie('blauthString', 'basic');
   const [publicData, setPublicData] = useState();
   const [weatherData, setWeatherData] = useState();
   useEffect(() => {
@@ -174,9 +174,9 @@ const App: React.FC = () => {
         ...data.chartData && { chartData: formatData(data.chartData) }
       });
     });
-    if (authString) {
-      console.log({ authString })
-      karateSocket.emit('client:auth', authString);
+    if (blauthString) {
+      console.log({ blauthString })
+      karateSocket.emit('client:auth', blauthString);
     }
   }, [karateSocket]);
 
@@ -195,7 +195,7 @@ const App: React.FC = () => {
   const alertCheapest = () => window.alert(formatAlert(undefined, cheapestPicks))
   const hit = () => {
     const response = window.prompt('how about it?');
-    setAuthString(response);
+    setblauthString(response);
     if (karateSocket) {
       karateSocket.emit('client:auth', response);
     }
