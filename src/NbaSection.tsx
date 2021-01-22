@@ -25,8 +25,8 @@ export default () => {
                             {
                                 predictions.games.map(({ teams: { home, away }, prediction }) => (
                                     <li>
-                                        <a href='javascript:void(0)'onClick={() => alert(alertText(away))}>{away.name} ({away.record})</a> @&nbsp;
-                                        <a href='javascript:void(0)'onClick={() => alert(alertText(home))}>{home.name} ({home.record})</a>&nbsp;
+                                        <a href='javascript:void(0)' onClick={evt => { alert(alertText(away)); evt.preventDefault(); }}>{away.name} ({away.record})</a> @&nbsp;
+                                        <a href='javascript:void(0)' onClick={evt => { alert(alertText(home)); evt.preventDefault(); }}>{home.name} ({home.record})</a>&nbsp;
                                         predicted winner: {prediction.winningTeam} with {Math.round(prediction.confidence)} confidence
                                     </li>
                                 ))
