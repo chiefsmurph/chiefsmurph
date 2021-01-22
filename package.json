@@ -19,6 +19,7 @@
     "react-datepicker": "^3.4.1",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
+    "react-modal": "^3.12.1",
     "react-scripts": "3.3.0",
     "socket.io-client": "^3.0.3",
     "string-table": "^0.1.5",
