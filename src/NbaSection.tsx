@@ -18,7 +18,7 @@ export default () => {
         <section>
             <h2>Nba Predictions</h2>
             {
-                !loading && predictions.predictions ? (
+                !loading && predictions.games ? (
                     <div>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         <ul style={{ zoom: '70%' }}>
