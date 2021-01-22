@@ -13,6 +13,7 @@ export default () => {
             setLoading(false);
         });
     }, [date]);
+    const alertText = game => JSON.stringify(game, null, 2);
     return (
         <section>
             <h2>Nba Predictions</h2>
@@ -22,7 +23,14 @@ export default () => {
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         <ul style={{ zoom: '70%' }}>
                             {
-                                predictions.predictions.map(line => <li>{line}</li>)
+                                predictions.games.map(({ teams: { home, away }, prediction }) => (
+                                    <li>
+                                        <a href={`javascript:alert(${alertText(away)})`}>{away.name} ({away.record})</a> @ 
+                                        <a href={`javascript:alert(${alertText(home)})`}>{home.name} ({home.record})</a>
+                                        predicted winner: {prediction.winningTeam}
+                                        with ${prediction.confidence} confidence
+                                    </li>
+                                ))
                             }
                         </ul>
                     </div>
