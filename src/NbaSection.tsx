@@ -10,7 +10,7 @@ export default () => {
     const [modalShowing,setModalShowing] = React.useState(null);
     useEffect(() => {
         setLoading(true);
-        fetch(`/pattern-predict/nba/${date}?json`).then(response => response.json()).then(data => {
+        fetch(`/pattern-predict/nba/predict/${date}?json`).then(response => response.json()).then(data => {
             setPredictions(data);
             setLoading(false);
         });
@@ -19,6 +19,12 @@ export default () => {
     function closeModal(){
       setModalShowing(null);
     }
+
+    const renderTeam = team => (
+        <div>
+            <a href='javascript:void(0)' onClick={evt => { setModalShowing(team); evt.preventDefault(); }}>{team.name} ({team.record}) {team.sportsbook ? '(' + Object.values(team.sportsbook).join(' | ') + ')' : ''}</a>
+        </div>
+    )
     return (
         <section>
             <h2>Nba Predictions</h2>
@@ -30,8 +36,7 @@ export default () => {
                             {
                                 predictions.games.map(({ teams: { home, away }, prediction }) => (
                                     <li>
-                                        <a href='javascript:void(0)' onClick={evt => { setModalShowing(away); evt.preventDefault(); }}>{away.name} ({away.record})</a> @&nbsp;
-                                        <a href='javascript:void(0)' onClick={evt => { setModalShowing(home); evt.preventDefault(); }}>{home.name} ({home.record})</a>&nbsp;
+                                        {renderTeam(away)} @ {renderTeam(home)}&nbsp;
                                         predicted winner: {prediction.winningTeam} with {Math.round(prediction.confidence)} confidence
                                     </li>
                                 ))
