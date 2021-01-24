@@ -21,9 +21,9 @@ export default () => {
     }
 
     const renderTeam = team => (
-        <div>
+        <span>
             <a href='javascript:void(0)' onClick={evt => { setModalShowing(team); evt.preventDefault(); }}>{team.name} ({team.record}) {team.sportsbook ? '(' + Object.values(team.sportsbook).join(' | ') + ')' : ''}</a>
-        </div>
+        </span>
     )
     return (
         <section>
