@@ -34,10 +34,10 @@ export default () => {
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         <ul style={{ zoom: '70%' }}>
                             {
-                                predictions.games.map(({ teams: { home, away }, prediction }) => (
-                                    <li>
+                                predictions.games.map(({ teams: { home, away }, prediction: { winningTeam, confidence, isUpset} }) => (
+                                    <li style={{ fontWeight: isUpset ? 'bold' : 'normal' }}>
                                         {renderTeam(away)} @ {renderTeam(home)}&nbsp;
-                                        predicted winner: {prediction.winningTeam} with {Math.round(prediction.confidence)} confidence
+                                        predicted winner: {winningTeam} with {Math.round(confidence)} confidence
                                     </li>
                                 ))
                             }
