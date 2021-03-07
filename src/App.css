@@ -36,6 +36,7 @@ header {
   flex-direction: row;
   min-height: 43vh;
   position: relative;
+  box-sizing: border-box;
 }
 
 header > * {
