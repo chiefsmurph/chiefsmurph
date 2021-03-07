@@ -147,17 +147,17 @@ main {
 }
 
 header h1 {
-  font-size: 7vw;
+  font-size: 4vw;
   align-self: flex-end;
+  font-variant: small-caps;
+  font-weight: bold;
   margin: 0;
-  color: black;
-  /* font-weight: 700; */
-  /* -webkit-text-stroke: 1px orange; */
-  padding: 2vw;
-  /* -webkit-text-stroke: 2px gray; */
+  color: #000;
+  padding: 2vw 8vw;
   background-repeat: no-repeat;
-  background-position: bottom left;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-position: 0 100%;
+  background-color: hsla(0,0%,100%,.8);
+  border-radius: 10px 0 0;
   z-index: 100;
 }
 
