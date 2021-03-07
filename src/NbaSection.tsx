@@ -13,6 +13,11 @@ export default () => {
         fetch(`/pattern-predict/nba/predict/${date}?json`).then(response => response.json()).then(data => {
             setPredictions(data);
             setLoading(false);
+        })
+        .catch(error => {
+            console.error(error);
+            setPredictions({ error });
+            setLoading(false);
         });
     }, [date]);
     const alertText = game => JSON.stringify(game, null, 2);
@@ -24,12 +29,17 @@ export default () => {
         <span>
             <a href='javascript:void(0)' onClick={evt => { setModalShowing(team); evt.preventDefault(); }}>{team.name} ({team.record}) {team.sportsbook ? '(' + Object.values(team.sportsbook).join(' | ') + ')' : ''}</a>
         </span>
-    )
+    );
+
+    if (predictions.error) {
+        return null;
+    }
+
     return (
         <section>
             <h2>Nba Predictions</h2>
             {
-                !loading && predictions.games ? (
+                predictions.games && (
                     <div>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         <ul style={{ zoom: '70%' }}>
@@ -43,7 +53,10 @@ export default () => {
                             }
                         </ul>
                     </div>
-                ) : <small>loading</small>
+                )
+            }
+            {
+                loading && <small>loading</small>
             }
             <Modal
                 isOpen={Boolean(modalShowing)}

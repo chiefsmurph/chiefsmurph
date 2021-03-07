@@ -35,10 +35,19 @@ header {
   display: flex;
   flex-direction: row;
   min-height: 43vh;
+  position: relative;
 }
 
 header > * {
   flex: 1;
+}
+
+header iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-width: 0;
+  z-index: 50;
 }
 
 header div {
@@ -148,7 +157,8 @@ header h1 {
   /* -webkit-text-stroke: 2px gray; */
   background-repeat: no-repeat;
   background-position: bottom left;
-  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 100;
 }
 
 
