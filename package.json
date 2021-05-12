@@ -13,7 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/socket.io-client": "^1.4.32",
     "ascii-table": "^0.0.9",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "react": "^16.12.0",
     "react-chartjs-2": "^2.9.0",
     "react-datepicker": "^3.4.1",
