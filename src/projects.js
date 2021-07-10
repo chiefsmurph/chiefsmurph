@@ -20,6 +20,15 @@ export default [
       // },
     ]
   },
+  {
+    section: 'AudioSquare',
+    links: [
+      {
+        name: 'AudioSquare [Android apk]',
+        url: 'https://chiefsmurph.com/'
+      }
+    ]
+  }
   // {
   //   section: 'Not Games',
   //   links: [{

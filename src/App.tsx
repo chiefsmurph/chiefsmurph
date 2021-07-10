@@ -209,7 +209,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header>
-        <iframe src="https://chiefsmurph.com/animations/" />
+        {/* <iframe src="https://chiefsmurph.com/animations/" /> */}
         <div>
           {/* <img src={MeTransparent} /> */}
           
