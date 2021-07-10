@@ -25,7 +25,7 @@ export default [
     links: [
       {
         name: 'AudioSquare [Android apk]',
-        url: 'https://chiefsmurph.com/'
+        url: 'https://chiefsmurph.com/audiosquare-3cab2d2bed9344deafa55a85e38e963d-signed.apk'
       }
     ]
   }
