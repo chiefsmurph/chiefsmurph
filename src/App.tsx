@@ -151,11 +151,11 @@ const App: React.FC = () => {
   const [publicData, setPublicData] = useState();
   const [weatherData, setWeatherData] = useState();
   useEffect(() => {
-    const socket = socketIOClient(`https://chiefsmurph.com`, {
-      path: '/karatetips/socket.io',
-      secure: true
-    });
-    setKarateSocket(socket as any);
+    // const socket = socketIOClient(`https://chiefsmurph.com`, {
+    //   path: '/karatetips/socket.io',
+    //   secure: true
+    // });
+    // setKarateSocket(socket as any);
     fetch('https://chiefsmurph.com/weather/').then(response => response.json()).then(setWeatherData);
   }, []);
 
@@ -282,7 +282,7 @@ const App: React.FC = () => {
           ) : null
         }
 
-        <NbaSection/>
+        {/* <NbaSection/> */}
 
           {/* <section>
             <h2>My Music</h2>
